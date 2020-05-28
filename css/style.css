@@ -1,0 +1,303 @@
+@import url("https://fonts.googleapis.com/css?family=Rubik:300,400&display=swap");
+
+:root {
+  --ff-rubik: "Rubik", sans-serif;
+  --body-bg-gradient: radial-gradient(
+    circle farthest-corner at 50.3% 44.5%,
+    rgba(116, 147, 179, 1) 0%,
+    rgba(62, 83, 104, 1) 100.2%
+  );
+  --body-bg: rgba(62, 83, 104, 1);
+  --screen-blue: #ecfffb;
+  --key-dark: #3e3636;
+  --num-dark: #1e1e1e;
+  --pale-blue: #2d767f;
+  --snap-in: cubic-bezier(0.24, 0, 1, 0.7);
+}
+
+*,
+*::before,
+*::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  background: var(--body-bg);
+  height: 100%;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 2rem;
+}
+
+/* Taking care of the animations */
+.smartphone {
+  position: relative;
+  margin: 2rem 0 2rem 0;
+  transform: rotate(0deg);
+  transition-delay: 0.8s;
+  transition: transform 1s ease-in-out;
+}
+
+.body__bottom {
+  /* width: 292px;
+  height: 572px; */
+  position: relative;
+  width: 146px;
+  height: 286px;
+  background: url(../assets/lower_with_kb.png) no-repeat center center/cover;
+}
+
+.body__upper {
+  /* width: 292px;
+  height: 572px; */
+  width: 146px;
+  height: 286px;
+  background: url(../assets/upper_body_no_screen.png) no-repeat center
+    center/cover;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  top: 0;
+  left: 0;
+  transition: left 0.8s var(--snap-in);
+}
+
+/* Styling in action */
+.screen {
+  width: 136px;
+  height: 242px;
+  background: url(../assets/app_screen/app-portrait.png) no-repeat center
+    center/cover;
+  transition: background 0.5s ease-in-out;
+  transition-delay: 1s;
+  position: relative;
+}
+
+.state-buttons {
+  display: none;
+  border: 1px solid #f5eded;
+  border-radius: 5px;
+  overflow: hidden;
+  position: fixed;
+  top: 50%;
+  left: 10px;
+  transform: translateY(-50%);
+  z-index: 99;
+}
+
+.state-buttons > div {
+  padding: 0.8rem;
+  margin: auto;
+  cursor: pointer;
+}
+
+.state-buttons__portrait,
+.state-buttons__landscape {
+  color: #f5eded;
+  transition: all 0.5s ease-out;
+}
+
+.state-buttons ion-icon {
+  font-size: 1.5rem;
+}
+
+.active {
+  background: #f5eded;
+  color: #272727;
+}
+
+.arrow {
+  font-size: 1.5rem;
+  color: var(--screen-blue);
+  display: none;
+  padding: 1rem;
+}
+
+.arrow ion-icon {
+  margin-left: 1rem;
+}
+
+.features {
+  font-family: var(--ff-rubik);
+  font-size: 0.8rem;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+}
+
+.dialog {
+  margin-bottom: 2rem;
+  opacity: 0;
+}
+.dialog:nth-of-type(1) {
+  animation: blink-in 0.7s cubic-bezier(0, 0, 0.58, 1) forwards;
+}
+.dialog:nth-of-type(2) {
+  animation: blink-in 0.7s cubic-bezier(0, 0, 0.58, 1) forwards;
+  animation-delay: 0.7s;
+}
+.dialog:nth-of-type(3) {
+  animation: blink-in 0.7s cubic-bezier(0, 0, 0.58, 1) forwards;
+  animation-delay: 1.4s;
+}
+.dialog:nth-of-type(4) {
+  animation: blink-in 0.7s cubic-bezier(0, 0, 0.58, 1) forwards;
+  animation-delay: 2.1s;
+}
+
+.dialog__title {
+  margin-bottom: 1rem;
+  position: relative;
+}
+
+.dialog__title::before {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  width: 280px;
+  height: 100%;
+  transform: translateX(-50%) skewX(30deg);
+  z-index: -1;
+  background: rgba(255, 255, 255, 0.4);
+}
+
+.dialog__content {
+  color: var(--screen-blue);
+  line-height: 1.2rem;
+}
+
+.to-landscape {
+  transform: rotate(-90deg);
+}
+.to-portrait {
+  transform: rotate(0deg);
+  transition-delay: 0.8s;
+}
+.slide-out {
+  left: 90px;
+  transition-delay: 0.8s;
+}
+.slide-in {
+  left: 0px;
+}
+.screen-2-in {
+  background: url(../assets/app_screen/app-landscape.png) no-repeat center
+    center/cover;
+  transition-delay: 1s;
+}
+.screen-1-in {
+  background: url(../assets/app_screen/app-portrait.png) no-repeat center
+    center/cover;
+  transition-delay: 1s;
+}
+
+/* Going to potrait mode in mobile (default) */
+/* @media (max-aspect-ratio: 7/8) and (orientation: portrait) {
+  .smartphone {
+    transform: rotate(0deg);
+    transition-delay: 0.8s;
+  }
+  .body__upper {
+    left: 0px;
+  }
+  /* #display {
+    transition-delay: 1s;
+  }
+  .screen {
+    transition-delay: 1s;
+  }
+} */
+
+/* Going to landscape mode in mobile */
+@media (max-width: 959px) and (orientation: landscape) {
+  body {
+    padding: 2rem 6rem;
+  }
+  .smartphone {
+    transform: rotate(-90deg);
+  }
+  .body__upper {
+    left: 90px;
+    transition-delay: 0.8s;
+  }
+
+  .screen {
+    background: url(../assets/app_screen/app-landscape.png) no-repeat center
+      center/cover;
+    transition-delay: 1s;
+  }
+
+  .arrow {
+    display: flex;
+    flex-direction: column;
+    position: absolute;
+    top: 40%;
+    right: 0;
+    animation: slide-up 1.5s ease-out infinite;
+  }
+
+  .dialog__title {
+    font-size: 16px;
+  }
+}
+
+/* For desktop screen */
+@media screen and (min-width: 960px) {
+  body {
+    flex-direction: row;
+    padding: 2rem 10rem;
+  }
+
+  .smartphone {
+    margin: 0;
+  }
+
+  .state-buttons {
+    display: block;
+  }
+
+  .features {
+    margin-left: 40px;
+  }
+
+  .dialog {
+    padding-left: 3rem;
+    padding-right: 3rem;
+  }
+}
+
+@keyframes blink-in {
+  0% {
+    opacity: 0;
+  }
+  20% {
+    opacity: 1;
+  }
+  25% {
+    opacity: 0;
+  }
+  65% {
+    opacity: 1;
+  }
+  80% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+@keyframes slide-up {
+  from {
+  }
+  to {
+    top: 30%;
+  }
+}
